@@ -2,6 +2,12 @@
 
 Django tabanlı envanter takibi ve yönetimi için geliştirilmiş bir stok yönetim sistemi.
 
+## 📌 Proje Durumu
+
+🚧 **Geliştirme Aşamasında** - Bu proje aktif olarak geliştirilmektedir ve düzenli güncellemeler alacaktır.
+
+> **Not:** Proje henüz tamamlanmamıştır. Yeni özellikler ve iyileştirmeler sürekli eklenmektedir.
+
 ## Özellikler
 
 - Envanter yönetimi
