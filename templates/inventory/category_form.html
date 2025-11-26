@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>{{ title }}</h4>
+            <p class="mb-0">Kategori bilgilerini girin</p>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <a href="{% url 'inventory:category_list' %}" class="btn btn-secondary">
+            <i class="icon-arrow-left"></i> Geri Dön
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Kategori Formu</h4>
+            </div>
+            <div class="card-body">
+                <form method="post" class="needs-validation">
+                    {% csrf_token %}
+                    
+                    {% if form.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Hata!</strong> Lütfen aşağıdaki hataları düzeltin.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}" class="required">Kategori Adı</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.name.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.description.id_for_label }}">Açıklama</label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.description.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="icon-check"></i> Kaydet
+                        </button>
+                        <a href="{% url 'inventory:category_list' %}" class="btn btn-light">
+                            İptal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

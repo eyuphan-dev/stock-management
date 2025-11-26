@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>{{ title }}</h4>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <a href="{% url 'inventory:product_list' %}" class="btn btn-secondary">
+            <i class="icon-arrow-left"></i> Geri Dön
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Ürün Bilgileri</h4>
+            </div>
+            <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>{{ form.name.label }}</label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                <div class="text-danger">{{ form.name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label>{{ form.sku.label }}</label>
+                                {{ form.sku }}
+                                <small class="form-text text-muted">{{ form.sku.help_text }}</small>
+                                {% if form.sku.errors %}
+                                <div class="text-danger">{{ form.sku.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>{{ form.category.label }}</label>
+                                {{ form.category }}
+                                {% if form.category.errors %}
+                                <div class="text-danger">{{ form.category.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label>{{ form.image.label }}</label>
+                                {{ form.image }}
+                                {% if product.image %}
+                                <small class="form-text text-muted">
+                                    Mevcut: <a href="{{ product.image.url }}" target="_blank">Resmi görüntüle</a>
+                                </small>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{ form.description.label }}</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                            <div class="text-danger">{{ form.description.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label>{{ form.unit_price.label }}</label>
+                                <div class="input-group">
+                                    {{ form.unit_price }}
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">₺</span>
+                                    </div>
+                                </div>
+                                {% if form.unit_price.errors %}
+                                <div class="text-danger">{{ form.unit_price.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group col-md-4">
+                                <label>{{ form.quantity.label }}</label>
+                                <div class="input-group">
+                                    {{ form.quantity }}
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">adet</span>
+                                    </div>
+                                </div>
+                                <small class="form-text text-muted">{{ form.quantity.help_text }}</small>
+                                {% if form.quantity.errors %}
+                                <div class="text-danger">{{ form.quantity.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group col-md-4">
+                                <label>{{ form.min_stock_level.label }}</label>
+                                <div class="input-group">
+                                    {{ form.min_stock_level }}
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">adet</span>
+                                    </div>
+                                </div>
+                                <small class="form-text text-muted">{{ form.min_stock_level.help_text }}</small>
+                                {% if form.min_stock_level.errors %}
+                                <div class="text-danger">{{ form.min_stock_level.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-check">
+                                {{ form.is_active }}
+                                <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                                    {{ form.is_active.label }}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="icon-check"></i> Kaydet
+                            </button>
+                            <a href="{% url 'inventory:product_list' %}" class="btn btn-secondary">
+                                İptal
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

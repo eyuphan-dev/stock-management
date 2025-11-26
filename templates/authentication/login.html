@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Giriş Yap - STOKMAN</title>
+    {% load static %}
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/logo1.png' %}">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body class="h-100">
+    <div class="authincation h-100">
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-6">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+                                    <h4 class="text-center mb-4">Stok Yönetim Sistemine Giriş</h4>
+                                    
+                                    {% if messages %}
+                                    {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert">
+                                            <span>&times;</span>
+                                        </button>
+                                    </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                    
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label><strong>Kullanıcı Adı</strong></label>
+                                            <input type="text" name="username" class="form-control" placeholder="kullaniciadi" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label><strong>Şifre</strong></label>
+                                            <input type="password" name="password" class="form-control" placeholder="Şifre" required>
+                                        </div>
+                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                            <div class="form-group">
+                                                <div class="form-check ml-2">
+                                                    <input class="form-check-input" type="checkbox" id="remember">
+                                                    <label class="form-check-label" for="remember">
+                                                        Beni Hatırla
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
+                                        </div>
+                                    </form>
+                                    <div class="new-account mt-3">
+                                        <p>Hesabınız yok mu? <a class="text-primary" href="{% url 'user:register' %}">Kayıt Ol</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'vendor/global/global.min.js' %}"></script>
+    <script src="{% static 'js/quixnav-init.js' %}"></script>
+    <script src="{% static 'js/custom.min.js' %}"></script>
+</body>
+
+</html>

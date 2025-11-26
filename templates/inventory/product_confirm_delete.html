@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}Ürün Sil{% endblock %}
+
+{% block content %}
+<div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                <h4>Ürün Silme Onayı</h4>
+            </div>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <a href="{% url 'inventory:product_list' %}" class="btn btn-secondary">
+                <i class="icon-arrow-left"></i> Geri Dön
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="card-title text-white mb-0">
+                        <i class="icon-exclamation"></i> Dikkat!
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded mb-3" style="max-height: 200px;">
+                        {% else %}
+                        <div class="bg-light p-4 mb-3 rounded d-inline-block">
+                            <i class="icon-bag" style="font-size: 60px; color: #999;"></i>
+                        </div>
+                        {% endif %}
+                        
+                        <h5>{{ product.name }}</h5>
+                        <p class="text-muted">{{ product.sku }}</p>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <i class="icon-info"></i> 
+                        Bu ürünü silmek istediğinizden emin misiniz? Bu işlem geri alınamaz!
+                    </div>
+
+                    <div class="table-responsive mb-4">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th width="40%">Kategori:</th>
+                                <td>{{ product.category.name|default:"Kategorisiz" }}</td>
+                            </tr>
+                            <tr>
+                                <th>Mevcut Stok:</th>
+                                <td>{{ product.quantity }} adet</td>
+                            </tr>
+                            <tr>
+                                <th>Birim Fiyat:</th>
+                                <td>{{ product.unit_price }} ₺</td>
+                            </tr>
+                            <tr>
+                                <th>Toplam Değer:</th>
+                                <td><strong>{{ product.total_value }} ₺</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <form method="post" class="text-center">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">
+                            <i class="icon-trash"></i> Evet, Sil
+                        </button>
+                        <a href="{% url 'inventory:product_detail' product.pk %}" class="btn btn-secondary">
+                            <i class="icon-close"></i> İptal
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

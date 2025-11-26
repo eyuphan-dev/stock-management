@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block pagetitle %}Kategoriler{% endblock %}
+
+{% block content %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4>Kategoriler</h4>
+            <p class="mb-0">Ürün kategorileri</p>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <a href="{% url 'inventory:category_create' %}" class="btn btn-primary">
+            <i class="icon-plus"></i> Yeni Kategori
+        </a>
+    </div>
+</div>
+
+<div class="row">
+        {% for category in categories %}
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title text-white mb-0">{{ category.name }}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        {{ category.description|default:"Açıklama yok"|truncatewords:20 }}
+                    </p>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div>
+                            <span class="badge badge-info">
+                                {{ category.products.count }} ürün
+                            </span>
+                        </div>
+                        <div>
+                            <a href="{% url 'admin:inventory_category_change' category.pk %}" class="btn btn-sm btn-info">
+                                <i class="icon-pencil"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <small class="text-muted d-block mt-2">
+                        <i class="icon-calendar"></i> {{ category.created_at|date:"d.m.Y" }}
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="card">
+                    <div class="card-body text-center py-5">
+                    <i class="icon-folder" style="font-size: 48px; color: #ccc;"></i>
+                    <p class="text-muted mt-3">Henüz kategori eklenmemiş.</p>
+                    <a href="{% url 'inventory:category_create' %}" class="btn btn-primary">
+                        <i class="icon-plus"></i> İlk Kategoriyi Ekle
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
